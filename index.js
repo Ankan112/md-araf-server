@@ -53,6 +53,7 @@ async function run() {
             const result = await servicesCollection.insertOne(service)
             res.send(result)
         })
+        // get method create for single review
         app.get('/review/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id)
@@ -61,6 +62,7 @@ async function run() {
             res.send(result)
             // console.log(id)
         })
+        // get review with query parameters
         app.get('/review', async (req, res) => {
             let query = {}
             if (req.query.email) {
@@ -71,12 +73,14 @@ async function run() {
             const result = await reviewsCollection.find(query).toArray()
             res.send(result)
         })
+        // post method for review
         app.post('/review', async (req, res) => {
             const review = req.body;
             console.log(review.uid)
             const result = await reviewsCollection.insertOne(review)
             res.send(result);
         })
+        // delete method implement for review delete
         app.delete('/review/:id', async (req, res) => {
             const id = req.params.id;
             // console.log('delete id: ', id)
@@ -85,12 +89,14 @@ async function run() {
             console.log(result)
             res.send(result)
         })
+        // get method create for single review
         app.get('/reviews/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await reviewsCollection.findOne(query)
             res.send(result)
         })
+        // update review put method
         app.put('/reviews/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) }
