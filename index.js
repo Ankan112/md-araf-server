@@ -25,24 +25,28 @@ async function run() {
         const servicesCollection = database.collection("services");
         const reviewsCollection = database.collection('review');
 
+        // get only three services for home page
         app.get('/services', async (req, res) => {
             const query = {}
             const cursor = servicesCollection.find(query).limit(3)
             const result = await cursor.toArray()
             res.send(result)
         })
+        // get services for services page
         app.get('/allservices', async (req, res) => {
             const query = {}
             const cursor = servicesCollection.find(query)
             const result = await cursor.toArray()
             res.send(result)
         })
+        // get single service
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await servicesCollection.findOne(query)
             res.send(result)
         })
+        // post method create for service
         app.post('/service', async (req, res) => {
             const service = req.body;
             console.log(service)
